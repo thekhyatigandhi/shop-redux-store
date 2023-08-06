@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import { useSelector, useDispatch } from "react-redux";
 
 const CartItem = ({ item }) => {
   useSelector((state) => {
@@ -26,6 +26,7 @@ const CartItem = ({ item }) => {
         type: REMOVE_FROM_CART,
         _id: item._id,
       });
+
       idbPromise("cart", "delete", { ...item });
     } else {
       dispatch({
@@ -33,6 +34,7 @@ const CartItem = ({ item }) => {
         _id: item._id,
         purchaseQuantity: parseInt(value),
       });
+
       idbPromise("cart", "put", { ...item, purchaseQuantity: parseInt(value) });
     }
   };
