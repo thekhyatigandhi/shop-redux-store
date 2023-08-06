@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
 function Jumbotron({ children }) {
   return (
     <div
       style={{
         height: 560,
-        clear: 'both',
+        clear: "both",
         paddingTop: 120,
-        textAlign: 'center',
+        textAlign: "center",
       }}
     >
       {children}
