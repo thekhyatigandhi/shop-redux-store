@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
-import ProductItem from '../ProductItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { UPDATE_PRODUCTS } from '../../utils/actions';
-import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCTS } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
-import spinner from '../../assets/spinner.gif';
+import { idbPromise } from "../../utils/helpers";
+import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import ProductItem from "../ProductItem";
+import { UPDATE_PRODUCTS } from "../../utils/actions";
+import { QUERY_PRODUCTS } from "../../utils/queries";
+import spinner from "../../assets/spinner.gif";
+import { useSelector, useDispatch } from "react-redux";
 
 function ProductList() {
+  const state = useSelector((state) => {
+    return state;
+  });
+
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
 
   const { currentCategory } = state;
 
@@ -21,11 +24,15 @@ function ProductList() {
         type: UPDATE_PRODUCTS,
         products: data.products,
       });
+
       data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+        idbPromise("products", "put", product);
       });
+      // add else if to check if `loading` is undefined in `useQuery()` Hook
     } else if (!loading) {
-      idbPromise('products', 'get').then((products) => {
+      // since we're offline, get all of the data from the `products` store
+      idbPromise("products", "get").then((products) => {
+        // use retrieved data to set global state for offline browsing
         dispatch({
           type: UPDATE_PRODUCTS,
           products: products,
