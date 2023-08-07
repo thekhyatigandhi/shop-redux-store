@@ -1,38 +1,42 @@
-import { idbPromise } from "../../utils/helpers";
+// import react dependencies
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+// import apollo dependency
 import { useQuery } from "@apollo/client";
-import ProductItem from "../ProductItem";
+
+// import utils dependencies
 import { UPDATE_PRODUCTS } from "../../utils/actions";
 import { QUERY_PRODUCTS } from "../../utils/queries";
+import { idbPromise } from "../../utils/helpers";
+
+// import component
+import ProductItem from "../ProductItem";
+
+// import assset
 import spinner from "../../assets/spinner.gif";
-import { useSelector, useDispatch } from "react-redux";
 
 function ProductList() {
-  const state = useSelector((state) => {
-    return state;
-  });
-
   const dispatch = useDispatch();
-
+  const state = useSelector((state) => state);
   const { currentCategory } = state;
-
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
+  // if data, loading, or dispatch is updated, update products
   useEffect(() => {
+    // retrieved from server
     if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.products,
       });
-
       data.products.forEach((product) => {
         idbPromise("products", "put", product);
       });
-      // add else if to check if `loading` is undefined in `useQuery()` Hook
-    } else if (!loading) {
-      // since we're offline, get all of the data from the `products` store
+    }
+    // get cache from idb
+    else if (!loading) {
       idbPromise("products", "get").then((products) => {
-        // use retrieved data to set global state for offline browsing
         dispatch({
           type: UPDATE_PRODUCTS,
           products: products,
@@ -41,6 +45,7 @@ function ProductList() {
     }
   }, [data, loading, dispatch]);
 
+  // return products if currentCategory does not exist, then filter and return products that match product.category._id
   function filterProducts() {
     if (!currentCategory) {
       return state.products;

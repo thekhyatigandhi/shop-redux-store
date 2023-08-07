@@ -1,21 +1,20 @@
+// import react dependencies
 import React from "react";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+
+// import utils dependencies
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
+import { pluralize } from "../../utils/helpers";
 import { idbPromise } from "../../utils/helpers";
-import { useSelector, useDispatch } from "react-redux";
 
 function ProductItem(item) {
-  const state = useSelector((state) => {
-    return state;
-  });
-
   const dispatch = useDispatch();
-
+  const state = useSelector((state) => state);
   const { image, name, _id, price, quantity } = item;
-
   const { cart } = state;
 
+  // update cart quantity if itemInCart exists; otherwise add to cart
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
