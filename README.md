@@ -12,19 +12,22 @@ Shop Shop Redux is an online shopping platform where you can acquire various pro
 
 Sort by categories such as Food, Household Supplies, Electronics, Books, and Toys (as pictured below) while you shop.
 
-### Login/Signup
+### Homepage
 
-Login or sign up in order to checkout your purchase.
+Displays all the products
+![Alt text](./public/Screenshot1.png)
 
 ### Shopping Cart
 
 Easy access to your shopping cart as you add items. You can adjust product quantity and remove items.
 The checkout option is only available when you are signed in.
+![Alt text](./public/Screenshot2.png)
 
 ### Stripe/Checkout
 
 The Shop Shop uses stripe as a simple and secure way to complete order payments. You can test out the functionality by using a fake
 credit card number `1234 5678 9010`. The rest of the payment info can be anything.
+![Alt text](./public/Screenshot3.png)
 
 ## Technologies Used
 
