@@ -1,6 +1,6 @@
 # shop-redux-store
 
-Shop Shop is an e-commerce site in which you can purchase products and checkout using stripe. This application is refactor of the original [Shop-Shop](https://github.com/thekhyatigandhi/shop-redux-store) which used React’s Context API to handle global state. Shop Shop Redux uses the [Redux](https://redux.js.org/) library to handle global state.
+Shop Shop Redux is an online shopping platform where you can acquire various products and conveniently complete your transactions through Stripe integration. This platform represents a revamped version of the initial [Shop-Shop](https://github.com/thekhyatigandhi/shop-redux-store), which previously relied on React's Context API for managing global state. In contrast, Shop Shop Redux leverages the Redux library to effectively manage the global state of the application.
 
 - [Application](#Application)
 - [Technologies Used](#TechnologiesUsed)
